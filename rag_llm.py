@@ -95,8 +95,6 @@ class rag_llm:
 
     # search within the DB for relevant data 
     def search_chroma(self, question, query_type):
-        print("=======================")
-        print(query_type)
         # if we ask for a text answer
         if query_type == "text":
             # Search the DB for 5 closest chunks of data
