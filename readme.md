@@ -63,7 +63,7 @@ Everything is already packaged and you can simply run the next command to launch
 Source launch_bot.sh
 ```
 
-When playing with PDF files, please remove all PDF files from the web app if you want to clean the vector database (this backend part hasn’t been implemented).
+When playing with PDF files, please **remove all PDF files from the web app** if you want to clean the vector database (this backend part hasn’t been implemented).
 
 ### How it works ?
 #### Streamlit App
