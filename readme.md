@@ -44,7 +44,7 @@ This project is meant to run on a Ubuntu computer with at least 12 GB of VRAM (G
 First you will need to pull the repository form GitHub using this command :
 
 ```
-Git clone https://github.com/batoutou/Local_RAG_LLM.git
+Git clone https://github.com/kickmaker/kickmaker-chatbot.git
 ```
 In the repository, you will find a setup_env.sh file that will create a python environment and install all the dependencies in it. 
 
