@@ -1,0 +1,20 @@
+matplotlib
+
+langchain[all]
+pypdf
+streamlit
+
+# Vector DB
+chromadb
+
+# stable diffusion
+huggingface_hub
+transformers
+diffusers 
+invisible_watermark 
+accelerate 
+safetensors
+cycler
+peft
+kiwisolver
+onnxruntime-openvino
