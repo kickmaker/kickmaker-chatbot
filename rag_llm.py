@@ -5,10 +5,10 @@ import chromadb
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema import Document
-from langchain.vectorstores.chroma import Chroma
+from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import OllamaEmbeddings
 from langchain_community.document_loaders import PyPDFLoader
-from langchain.vectorstores.utils import filter_complex_metadata
+from langchain_community.vectorstores.utils import filter_complex_metadata
 from langchain.chains import RetrievalQAWithSourcesChain
 
 class rag_llm:
@@ -95,6 +95,8 @@ class rag_llm:
 
     # search within the DB for relevant data 
     def search_chroma(self, question, query_type):
+        print("=======================")
+        print(query_type)
         # if we ask for a text answer
         if query_type == "text":
             # Search the DB for 5 closest chunks of data

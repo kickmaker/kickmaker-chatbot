@@ -1,4 +1,5 @@
 import streamlit as st
+from streamlit.components.v1 import html
 
 from rag_llm import rag_llm
 from langChain import langchain
@@ -38,7 +39,7 @@ custom_html = """
 
 # Display the custom HTML
 st.set_page_config(layout="wide")
-st.components.v1.html(custom_html)
+html(custom_html)
 
 # Sidebar content
 st.sidebar.header("Tools")
@@ -85,9 +86,15 @@ if question := st.chat_input(placeholder="Ask your question here !"):
 
     # check whether the user wants a text answer or a generated image
     query_type = langchain_llm.get_query_type(question)
+
+    if query_type == "error":
+        answer = "I don't understand your request, please reformulate !"
+        with st.chat_message("assistant"):
+            st.write(answer)
+        st.session_state.messages.append({"role": "assistant", "content": answer})
     
     # if he wants an image
-    if query_type == "img":
+    elif query_type == "img":
         # display a spinning circle will the program runs
         with st.chat_message("assistant"):
             with st.spinner("Thinking..."):  
