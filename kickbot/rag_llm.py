@@ -19,6 +19,8 @@ class rag_llm:
         # path to data and vector DB
         self.data_path = 'data'
         self.db_path = 'vec_db'
+        
+        self.db = None
 
         # create the vector database
         self.get_chroma()
@@ -115,6 +117,8 @@ class rag_llm:
         if os.path.isdir(self.data_path):
             # remove it
             shutil.rmtree(self.data_path)
-        # delete the vector DB collection
-        self.db.delete_collection()
-        self.docs = None
+            
+        if self.db:
+            # delete the vector DB collection
+            self.db.delete_collection()
+            self.docs = None
