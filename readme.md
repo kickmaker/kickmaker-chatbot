@@ -43,34 +43,36 @@ This project is meant to run on a Ubuntu computer with at least 12 GB of VRAM (G
 
 First you will need to pull LLAMA 3 locally using Ollama.
 If you need to install Ollama on your machine, you can run this command :
-```
+```sh
 curl https://ollama.ai/install.sh | sh
 ```
 Now you can pull the LLM model locally by typing this command :
-```
+```sh
 ollama pull llama3
 ```
 
-From now you can install our project as a standalone package by using the following command the repository form GitHub using this command :
-
+Before installing the package, we recommend using a python environment. You can create one using these commands.
+```sh
+sudo apt install python3-virtualenv
+virtualenv -p python3 venv
+source venv/bin/activate
 ```
-Git clone https://github.com/kickmaker/kickmaker-chatbot.git
-```
-In the repository, you will find a setup_env.sh file that will create a python environment and install all the dependencies in it. 
 
-It will also install Ollama and pull the Llama3 model in order to run it locally (~4GB)
-
-In order to make the installation, please run the following line in your terminal :
-
-```
-Bash setup_env.sh
+From now you can install our project as a standalone package by using the following command 
+```sh
+pip install git+https://github.com/kickmaker/kickmaker-chatbot.git
 ```
 
 ### Launching the program
-Everything is already packaged and you can simply run the next command to launch the project and access the web application.
+Everything is already packaged , so now you can just import the library as a package and use it.
+```py
+import kickbot
 
+kickbot.kickbot()
 ```
-Source launch_bot.sh
+However it is **very important** that you run your own app using the following structure. 
+```sh
+streamlit run your_app.py --server.fileWatcherType none
 ```
 
 When playing with PDF files, please **remove all PDF files from the web app** if you want to clean the vector database (this backend part hasn’t been implemented).
