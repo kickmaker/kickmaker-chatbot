@@ -1,0 +1,11 @@
+setup.py
+kickbot/__init__.py
+kickbot/img_gen.py
+kickbot/kickbot.py
+kickbot/langChain.py
+kickbot/rag_llm.py
+kickmaker_chatbot.egg-info/PKG-INFO
+kickmaker_chatbot.egg-info/SOURCES.txt
+kickmaker_chatbot.egg-info/dependency_links.txt
+kickmaker_chatbot.egg-info/requires.txt
+kickmaker_chatbot.egg-info/top_level.txt

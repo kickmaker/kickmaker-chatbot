@@ -41,7 +41,17 @@ The **RAG** (retrieval augmented generation) module is a key feature of our chat
 ### Requirements 
 This project is meant to run on a Ubuntu computer with at least 12 GB of VRAM (GPU).
 
-First you will need to pull the repository form GitHub using this command :
+First you will need to pull LLAMA 3 locally using Ollama.
+If you need to install Ollama on your machine, you can run this command :
+```
+curl https://ollama.ai/install.sh | sh
+```
+Now you can pull the LLM model locally by typing this command :
+```
+ollama pull llama3
+```
+
+From now you can install our project as a standalone package by using the following command the repository form GitHub using this command :
 
 ```
 Git clone https://github.com/kickmaker/kickmaker-chatbot.git
