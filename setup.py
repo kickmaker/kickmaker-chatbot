@@ -1,10 +1,10 @@
 from setuptools import setup
 
 setup(
-    name='kickmaker-chatbot',
+    name='kickbot',
     version='0.1.0',    
     description='Kickmaker chatbot Project',
-    url='https://github.com/kickmaker/kickmaker-chatbot.git',
+    url='https://github.com/kickmaker/kickmaker-chatbot.git@enhancement/be/2-repo-as-an-installable-pip-package',
     author='Baptiste Egnell',
     packages=['kickbot'],
     install_requires=['langchain[all]',
