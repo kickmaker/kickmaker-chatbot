@@ -66,13 +66,13 @@ def kickbot():
         st.session_state["files"] = False
         # delete the chroma DB
         query_llm.remove_chroma()
-        # recreate a new empty one+
+        # recreate a new empty one
         query_llm.get_chroma()
         
     # If the program is starting and there is no messages at all
     if "messages" not in st.session_state:
         # remove the previous DB
-        rag_llm.remove_chroma()
+        query_llm.remove_chroma()
         # print a welcoming message to engage the discussion"
         st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
