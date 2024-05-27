@@ -4,7 +4,7 @@ setup(
     name='kickbot',
     version='0.1.0',    
     description='Kickmaker chatbot Project',
-    url='https://github.com/kickmaker/kickmaker-chatbot.git@enhancement/be/2-repo-as-an-installable-pip-package',
+    url='https://github.com/kickmaker/kickmaker-chatbot.git',
     author='Baptiste Egnell',
     packages=['kickbot'],
     install_requires=['langchain[all]',
