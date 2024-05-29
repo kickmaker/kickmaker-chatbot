@@ -5,8 +5,9 @@ from kickbot.rag_llm import rag_llm
 from kickbot.langChain import langchain
 from kickbot.img_gen import img_gen
 
+
 def kickbot():
-    # create instances for each process and store them in the session 
+    # create instances for each process and store them in the session
     if "models" not in st.session_state.keys():
         query_llm = rag_llm()
         langchain_llm = langchain()
@@ -20,7 +21,7 @@ def kickbot():
     if "files" not in st.session_state.keys():
         st.session_state["files"] = False
 
-    # custom HTML code for visual 
+    # custom HTML code for visual
     custom_html = """
             <div class="banner">
                 <img src="https://www.les-soudes.com/app/uploads/2021/08/logo_kickmaker_CMJN_black-1-Simon-Fressy.png" alt="Banner Image">
@@ -45,8 +46,10 @@ def kickbot():
     # Sidebar content
     st.sidebar.header("Tools")
     st.sidebar.subheader("Upload Files")
-    # create a file uploader module 
-    uploaded_file = st.sidebar.file_uploader("Upload files to add to your knowledge data base", type=['pdf'], accept_multiple_files=True)
+    # create a file uploader module
+    uploaded_file = st.sidebar.file_uploader(
+        "Upload files to add to your knowledge data base", type=['pdf'],
+        accept_multiple_files=True)
 
     # print the main title
     st.title("Kickmaker AI bot !")
@@ -55,12 +58,12 @@ def kickbot():
     if uploaded_file:
         # Set the boolean to True if files are present
         st.session_state["files"] = True
-        # recover the chroma DB 
+        # recover the chroma DB
         query_llm.get_chroma()
         # add the new files to the chroma DB
         query_llm.upload_data(uploaded_file)
 
-    # check if all pdf have been deleted 
+    # check if all pdf have been deleted
     if not uploaded_file and st.session_state["files"] is True:
         # Set the boolean to False if files have been removed
         st.session_state["files"] = False
@@ -68,22 +71,24 @@ def kickbot():
         query_llm.remove_chroma()
         # recreate a new empty one
         query_llm.get_chroma()
-        
+
     # If the program is starting and there is no messages at all
     if "messages" not in st.session_state:
         # remove the previous DB
         query_llm.remove_chroma()
         # print a welcoming message to engage the discussion"
-        st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
+        st.session_state["messages"] = [
+            {"role": "assistant", "content": "How can I help you?"}]
 
     # check the message buffer and display the new ones
     for msg in st.session_state["messages"]:
         st.chat_message(msg["role"]).write(msg["content"])
 
-    # check if the user has ask something 
+    # check if the user has ask something
     if question := st.chat_input(placeholder="Ask your question here !"):
         # send the question to the message buffer
-        st.session_state["messages"].append({"role": "user", "content": question})
+        st.session_state["messages"].append(
+            {"role": "user", "content": question})
         # display the message
         st.chat_message("user").markdown(question)
 
@@ -94,32 +99,37 @@ def kickbot():
             answer = "I don't understand your request, please reformulate !"
             with st.chat_message("assistant"):
                 st.write(answer)
-            st.session_state.messages.append({"role": "assistant", "content": answer})
-        
+            st.session_state.messages.append(
+                {"role": "assistant", "content": answer})
+
         # if he wants an image
         elif query_type == "img":
             # display a spinning circle will the program runs
             with st.chat_message("assistant"):
-                with st.spinner("Thinking..."):  
+                with st.spinner("Thinking..."):
                     # create an adequate LangChain prompt to generate images
-                    prompt = langchain_llm.get_chatbot_answer(question, query_type="img")
+                    prompt = langchain_llm.get_chatbot_answer(
+                        question, query_type="img")
                     # call the Stable Diffusion model to generate the image
-                    image = image_gen.generate_img(question)  
+                    image = image_gen.generate_img(prompt)
                     # send the image to the message buffer
-                    st.image(image, caption=question, use_column_width=True)
-            
-            st.session_state.messages.append({"role": "assistant", "content": image})
-        
+                    st.image(image, caption=prompt, use_column_width=True)
+
+            st.session_state.messages.append(
+                {"role": "assistant", "content": image})
+
         # if he wants a text
-        else:   
+        else:
             # display a spinning circle will the program runs
             with st.chat_message("assistant"):
                 with st.spinner("Thinking..."):
                     # query the pdf DB for useful data
                     context = query_llm.search_chroma(question, query_type)
-                    # get a proper answer based on this useful data and the model's knowledge 
-                    answer = langchain_llm.get_chatbot_answer(question, context=context, query_type=query_type)
+                    # get an answer based on context and the model's knowledge
+                    answer = langchain_llm.get_chatbot_answer(
+                        question, context=context, query_type=query_type)
                     # send the text to the message buffer
                     st.write(answer)
-                
-            st.session_state.messages.append({"role": "assistant", "content": answer})
+
+            st.session_state.messages.append(
+                {"role": "assistant", "content": answer})
