@@ -1,66 +1,40 @@
 # **Kickmaker Chatbot : How to play with GenAI at home**
-## Introduction
-The rapid advancement of artificial intelligence (AI) has led to the development of various chatbots that can converse with humans. However, most existing chatbots are limited in their capabilities, only able to answer questions or provide information within a specific domain or cost money to use. In this article, we will show you how to build an AI chatbot that not only answers questions but also generates images using the stable diffusion model and provides a RAG module to question you documents.
-
-![pipeline](images/pipeline.png)
-
-Our project is based on a combination of several AI technologies, including Ollama, Langchain, Streamlit, LLaMA3, and Stable Diffusion Model. The chatbot is designed to be multimodal, meaning it can interact with users through text-based conversations, image generation, and PDF file analysis. Our solution is free and totally on device which is useful when working with critical documents that you wouldn’t want to share.
-
-## What is a LLM model ?
-Large language models (LLMs) are AI programs trained on massive amounts of text and code to understand and generate human language. These transformer-based neural networks use deep learning to perform natural language processing (NLP) and generation (NLG). By analysing huge datasets, LLMs learn the intricacies of language, allowing them to answer questions, translate languages, and even create different kinds of creative content. Though still under development, LLMs require significant resources for training but hold the potential to revolutionize how we interact with machines through chatbots, virtual assistants, and more.
-
-In this project, we will be using the latest model from Meta : Llama3. We will be using the 8 billions parameters variant, which is the smallest one. This model still performs rather well when comparing to others on the MMLU metric. The model has knowledge up to March 2023 and runs on 6GB of VRAM (GPU usage). The context window, which is the amount of input data it can process at once, has a maximum length of 8192 tokens. It is an improvements from the previous version but can be a little bit small if you wish to work with large PDF files. 
-
-## What is a Stable diffusion model ?
-Stable Diffusion is a large text to image diffusion model trained on billions of images. Image diffusion model learn to denoise images to generate output images. Stable Diffusion uses latent images encoded from training data as input. Further, given an image Z-0, the diffusion algorithm progressively add noise to the image and produces a noisy image Z-t, with t being how many times noise is added. When t is large enough, the image approximates pure noise. Given a set of inputs such as time step t, text prompt, image diffusion algorithms learn a network to predict the noise added to the noisy image Z-t. 
-
-Schedulers, sometimes known as samplers, are a key piece of the diffusion pipeline used to create images with Stable Diffusion models.
-
-Schedulers guide the process of de-noising to produce a final image output. They determine the number of denoising steps and the size of each step, whether the steps are random (stochastic) or predictable (deterministic) and a specific method used for de-noising. The one we use is the Diffusion Probabilistic Models. These schedulers approximate solutions of differential equations in image quality improvement, with both single-step and multi-step variants available.
-
-Here is the global architecture of the stable diffusion models : 
-
-![Stable Diffusion Inference Process](images/sd.png)
-
-## Technologies used
-**Ollama** is a software tool that simplifies running powerful AI models, like Large Language Models (LLMs), directly on your local computer. It is a quick and relatively easy way of using open source LLMs like LLaMA3.
-
-**Langchain** has the ability to generate complex input prompts taking into consideration the question, context and history. It allows us to create a conversational interface for users to interact with the chatbot.
-
-The **RAG** (retrieval augmented generation) module is a key feature of our chatbot, allowing users to upload PDF files and ask questions or generate summaries. This module utilizes natural language processing (NLP) techniques to analyse the uploaded file and provide relevant information in response to user queries.
-
-![RAG LLM](images/rag.png)
-
-**ChromaDB** is a vector database that acts as a knowledge base for local RAG LLM applications. It stores information in a way LLMs can understand, allowing them to retrieve relevant details from your local data sources like documents or Q&A pairs. This simplifies building RAG applications by offering easy integration with LLM frameworks and enabling fast information retrieval for improved response speed.
-
-**Streamlit** is a Python library that lets you build user interfaces with ease. This is perfect for local RAG LLM applications as it allows you to create interactive interfaces for users to interact with your LLM through text prompts, file uploads or image display. Streamlit simplifies development, promotes user interaction, and enables fast prototyping for a polished user experience.   
-
-**HuggingFace’s Diffusers** is the go-to library for state-of-the-art pretrained diffusion models for generating images. It can be used for a simple inference solution or when we want to train our own diffusion model.
-
 ## Let’s get started !
 ### Requirements 
 This project is meant to run on a Ubuntu computer with at least 12 GB of VRAM (GPU).
 
-First you will need to pull the repository form GitHub using this command :
-
+First you will need to pull LLAMA 3 locally using Ollama.
+If you need to install Ollama on your machine, you can run this command :
+```sh
+curl https://ollama.ai/install.sh | sh
 ```
-Git clone https://github.com/kickmaker/kickmaker-chatbot.git
+Now you can pull the LLM model locally by typing this command :
+```sh
+ollama pull llama3
 ```
-In the repository, you will find a setup_env.sh file that will create a python environment and install all the dependencies in it. 
 
-It will also install Ollama and pull the Llama3 model in order to run it locally (~4GB)
-
-In order to make the installation, please run the following line in your terminal :
-
+Before installing the package, we recommend using a python environment. You can create one using these commands.
+```sh
+sudo apt install python3-virtualenv
+virtualenv -p python3 venv
+source venv/bin/activate
 ```
-Bash setup_env.sh
+
+From now you can install our project as a standalone package by using the following command 
+```sh
+pip install git+https://github.com/kickmaker/kickmaker-chatbot.git
 ```
 
 ### Launching the program
-Everything is already packaged and you can simply run the next command to launch the project and access the web application.
+Everything is already packaged , so now you can just import the library as a package and use it.
+```py
+import kickbot
 
+kickbot.kickbot()
 ```
-Source launch_bot.sh
+However it is **very important** that you run your own app using the following structure. 
+```sh
+streamlit run your_app.py --server.fileWatcherType none
 ```
 
 When playing with PDF files, please **remove all PDF files from the web app** if you want to clean the vector database (this backend part hasn’t been implemented).
