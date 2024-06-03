@@ -6,7 +6,8 @@ from langchain_core.output_parsers import StrOutputParser
 class langchain:
     def __init__(self) -> None:
         # different LangChain template for the various cases
-        # template to answer to a question about anything including things inside a PDF file
+        # template to answer to a question about anything including things
+        # inside a PDF file
         self.text_template = """You're a helpful AI assistant tasked to answer the user's questions.
             You're friendly and you answer extensively with multiple sentences.
             To help you, you can use the following context : {context}
@@ -23,7 +24,8 @@ class langchain:
             please return only the new prompt and no surrounding text
             """
 
-        # template to create a resume of a PDF file which will use only the context from this file
+        # template to create a resume of a PDF file which will use only the
+        # context from this file
         self.resume_template = """You're a helpful AI assistant tasked to resume PDF files.
             You're friendly and you answer extensively with multiple sentences.
             To answer, please use only the following context : {context}
