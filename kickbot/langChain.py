@@ -6,8 +6,11 @@ from langchain_core.output_parsers import StrOutputParser
 class langchain:
     def __init__(self) -> None:
         # different LangChain template for the various cases
-        # template to answer to a question about anything including things inside a PDF file
-        self.text_template = """You're a helpful AI assistant tasked to answer the user's questions.
+        # template to answer to a question about anything including things
+        # inside a PDF file
+        self.text_template = """
+            You're a helpful AI assistant tasked to answer the \
+            user's questions.
             You're friendly and you answer extensively with multiple sentences.
             To help you, you can use the following context : {context}
 
@@ -17,14 +20,20 @@ class langchain:
             """
 
         # template to generate an image based on a prompt
-        self.img_template = """Reformulate the following prompt that is used to generate images. Create a new proper prompt which only keeps the meaningful information and removing words that are not useful to the image's meaning.
+        self.img_template = """
+            Reformulate the following prompt that is used to generate images.
+            Create a new proper prompt which only keeps \
+            the meaningful information and removing words that are not useful \
+            to the image's meaning.
 
             The prompt is : {question}
             please return only the new prompt and no surrounding text
             """
 
-        # template to create a resume of a PDF file which will use only the context from this file
-        self.resume_template = """You're a helpful AI assistant tasked to resume PDF files.
+        # template to create a resume of a PDF file which will use only the
+        # context from this file
+        self.resume_template = """
+            You're a helpful AI assistant tasked to resume PDF files.
             You're friendly and you answer extensively with multiple sentences.
             To answer, please use only the following context : {context}
 
@@ -32,10 +41,17 @@ class langchain:
             """
 
         # template to determine the query type between Text, Image and Resume
-        self.query_template = """Based on the following prompt, I just want to know whether the user is expecting a text answer or a generated image or a resume of a given pdf file.
-            If it is suppose to be a text answer just return: text. If it is supposed to be a generated image just return:  img. If it is supposed to be a resume just return:  resume. If you are not sure return: error
+        self.query_template = """
+            Based on the following prompt, I just want to \
+            # know whether the user is expecting a text answer or a generated \
+            image or a resume of a given pdf file.
+            If it is suppose to be a text answer just return: text.
+            If it is supposed to be a generated image just return:  img.
+            If it is supposed to be a resume just return:  resume.
+            If you are not sure return: error.
             The prompt is : {question}
-            Don't return anything else than what is expected between: text, img, resume, error.
+            Don't return anything else than what is expected between: text,
+            img, resume, error.
             """
 
         self.llm = self.get_llm()

@@ -22,22 +22,26 @@ def kickbot():
         st.session_state["files"] = False
 
     # custom HTML code for visual
-    custom_html = """
-            <div class="banner">
-                <img src="https://www.les-soudes.com/app/uploads/2021/08/logo_kickmaker_CMJN_black-1-Simon-Fressy.png" alt="Banner Image">
-            </div>
-            <style>
-                .banner {
-                    width: 100%;
-                    height: 100%;
-                    overflow: hidden;
-                }
-                .banner img {
-                    width: 100%;
-                    object-fit: fill;
-                }
-            </style>
-            """
+    custom_html = (
+        """
+        <div class="banner">
+            <img src="https://www.les-soudes.com/app/uploads/2021/08/\
+            logo_kickmaker_CMJN_black-1-Simon-Fressy.png" \
+                alt="Banner Image">
+        </div>
+        <style>
+            .banner {
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+            .banner img {
+                width: 100%;
+                object-fit: fill;
+            }
+        </style>
+        """
+    )
 
     # Display the custom HTML
     st.set_page_config(layout="wide")
