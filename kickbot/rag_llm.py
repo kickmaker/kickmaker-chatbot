@@ -85,14 +85,20 @@ class rag_llm:
         # if the DB already exist
         if os.path.isfile("vec_db/chroma.sqlite3"):
             # get the DB
-            self.db = Chroma(persist_directory=self.db_path, embedding_function=self.embeddings)
+            self.db = Chroma(
+                persist_directory=self.db_path,
+                embedding_function=self.embeddings)
 
         else:
             # create a DB client and a collection
             client = chromadb.PersistentClient(path=self.db_path)
             collection = client.get_or_create_collection("Documents")
             # create the DB and persist it
-            self.db = Chroma(persist_directory=self.db_path, client=client, collection_name="Documents", embedding_function=self.embeddings)
+            self.db = Chroma(
+                persist_directory=self.db_path,
+                client=client,
+                collection_name="Documents",
+                embedding_function=self.embeddings)
 
     # search within the DB for relevant data
     def search_chroma(self, question, query_type):
@@ -100,7 +106,8 @@ class rag_llm:
         if query_type == "text":
             # Search the DB for 5 closest chunks of data
             results = self.db.similarity_search_with_score(question, k=5)
-            context = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
+            context = "\n\n---\n\n".join([doc.page_content for doc,
+                                         _score in results])
 
         # if we want a PDF resume
         elif query_type == "resume":
