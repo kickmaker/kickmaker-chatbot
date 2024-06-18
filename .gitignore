@@ -1,7 +1,12 @@
-venv
+# Byte-compiled / optimized / DLL files
+__pycache__/
 
-__pycache__
+# Distribution / packaging
+*.egg-info/
 
+# Environments
+venv/
+
+# databases
 data
-
 vec_db
